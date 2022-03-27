@@ -1,0 +1,73 @@
+{% load bootstrap4 %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>{% block title %}Главная{% endblock %} - Доска обьявлений</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    {% bootstrap_javascript jquery='slim' %}
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body class="container-fluid">
+
+{#навигационный бар + лого #}
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow d-flex justify-content-end">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
+    <ul class="nav ">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Регистрация</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true"
+                   aria-expanded="false">Профиль</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Личный Кабинет</a>
+                    <a class="dropdown-item" href="{% url 'main:profile' %}">Мои обьявления</a>
+                    <a class="dropdown-item" href="#">изменить пароль </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Выйти</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">удалить</a>
+                </div>
+            </li>
+        {% else %}
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'main:login' %}">войти</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+{#навигационный бар левый #}
+<div class="row">
+    <nav class="col-md-auto">
+        <a href="{% url 'main:index' %}" class="nav-link root">Главная</a>
+        <a class="nav-link root" href="{% url 'main:other' page='about' %}"> о сайте </a>
+        <span class="nav-link root font-weight-bold">Недвижемость</span>
+        <a href="#" class="nav-link">Жилье</a>
+        <a href="#" class="nav-link">Склад</a>
+        <a href="#" class="nav-link">Гараж</a>
+        <span class="nav-link root font-weight-bold">Транспорт</span>
+        <a href="#" class="nav-link">Легковой</a>
+        <a href="#" class="nav-link">грузовой</a>
+
+    </nav>
+    <section class="col broder py-2">
+        {% bootstrap_messages %}
+        <div class="container-fluid">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </section>
+</div>
+
+<footer class="mt-3">
+
+
+</footer>
+</body>
+</html>
